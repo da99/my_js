@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}}
+#
+set -u -e -o pipefail
+
+local +x ORIGINAL_ARGS="$@"
+if [[ -z "$@" ]]; then
+  local +x ACTION="watch"
+else
+  local +x ACTION=$1; shift
+fi
+
+case "$ACTION" in
+  watch)
+    cd "$THIS_DIR"
+    mkdir -p tmp/scratch
+    touch tmp/scratch/scratch.jspp
+    local +x CMD="my_jspp scratch run $@"
+    ${=CMD} || :
+    process watch "-r tmp/scratch -r sh" "$CMD"
+    ;;
+
+  run)
+    cd "$THIS_DIR"/tmp/scratch
+    js++ scratch.jspp -o ../scratch.js
+    sh_color ORANGE "=== {{Running}}..."
+    node ../scratch.js
+    sh_color GREEN "=== {{DONE}} ==="
+    ;;
+
+  *)
+    echo "!!! Unknown arguments: $ORIGINAL_ARGS" >&2
+    exit 1
+    ;;
+
+esac
+
