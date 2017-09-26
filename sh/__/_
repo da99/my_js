@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 #
-# === {{CMD}}
+# === {{CMD}} [the args to the js++ executable]
 #
 set -u -e -o pipefail
 
