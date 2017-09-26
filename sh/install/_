@@ -1,0 +1,41 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}}
+#
+set -u -e -o pipefail
+
+local +x ORIGINAL_ARGS="$@"
+
+case "$(echo $@)" in
+
+  "")
+    if ! type curl &>/dev/null ; then
+      echo "!!! Install curl" >&2
+      exit 5
+    fi
+    local +x LATEST_VERSION="$(curl -s "https://www.onux.com/jspp/" | grep Version | tr -s ' ' | cut -d' ' -f3 | tail -n 1)"
+    local +x URL="https://onux.r.worldssl.net/jspp/downloads/JS++-${LATEST_VERSION}-linux_x64.tar.gz"
+    cd "$THIS_DIR"
+    mkdir -p tmp
+    cd tmp
+    if [[ ! -d "JS++" ]]; then
+      if [[ ! -f "$(basename "$URL")" ]]; then
+        wget "$URL"
+      fi
+      tar -xzf "$(basename "$URL")"
+    fi
+    local +x bin="$PWD/JS++/js++"
+    if [[ ! -x "$bin" ]]; then
+      sh_color ORANGE "=== {{Files installed}}: but executable not found: BOLD{{$bin}} "
+    else
+      sh_color GREEN "=== {{DONE}}: BOLD{{$bin}} "
+    fi
+    ;;
+
+  *)
+    echo "!!! Unknown arguments: $ORIGINAL_ARGS" >&2
+    exit 1
+    ;;
+
+esac
+
