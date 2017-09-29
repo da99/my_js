@@ -11,21 +11,58 @@ else
   local +x ACTION=$1; shift
 fi
 
+local +x OUTPUT="$THIS_DIR/tmp/scratch-out/scratch.js"
+
 case "$ACTION" in
-  watch)
-    cd "$THIS_DIR"
-    mkdir -p tmp/scratch
-    touch tmp/scratch/scratch.jspp
-    local +x CMD="my_jspp scratch run $@"
-    ${=CMD} || :
-    process watch "-r tmp/scratch -r sh" "$CMD"
+  install)
+    PREFIX="$THIS_DIR/tmp" npm install -g js-beautify
     ;;
 
-  run)
+  watch)
+    reset
+    cd "$THIS_DIR"
+    mkdir -p tmp/scratch/
+    mkdir -p tmp/scratch-out
+
+    case "$(echo $@)" in
+      "")
+        touch tmp/scratch/scratch.jspp
+        local +x CMD="my_jspp scratch compile $@"
+        ${=CMD} || :
+        process watch "-r tmp/scratch -r sh" "$CMD"
+        ;;
+
+      output)
+        cd "$THIS_DIR"
+        local +x CMD="my_jspp scratch pretty-output"
+        ${=CMD} || :
+        process watch "tmp/scratch-out" "my_jspp scratch pretty-output"
+        ;;
+
+      *)
+        echo "!!! Invalid option: watch $@" >&2
+        exit 5
+        ;;
+    esac
+    ;;
+
+  pretty-output)
+    if ! which js-beautify &>/dev/null; then
+      my_jspp scratch install
+    fi
+
+    local +x FILE="$THIS_DIR/tmp/scratch-out/scratch.js"
+    if [[ -s "$FILE" ]]; then
+      js-beautify "$FILE"
+      sh_color GREEN "\n=== {{DONE}} ==="
+    fi
+    ;;
+
+  compile)
     cd "$THIS_DIR"/tmp/scratch
-    js++ scratch.jspp -o ../scratch.js
+    js++ scratch.jspp -o "$OUTPUT"
     sh_color ORANGE "=== {{Running}}..."
-    node ../scratch.js
+    node "$OUTPUT"
     sh_color GREEN "=== {{DONE}} ==="
     ;;
 
