@@ -53,7 +53,7 @@ case "$ACTION" in
 
     local +x FILE="$THIS_DIR/tmp/scratch-out/scratch.js"
     if [[ -s "$FILE" ]]; then
-      js-beautify "$FILE"
+      js-beautify "$FILE" --indent-size 2
       sh_color GREEN "\n=== {{DONE}} ==="
     fi
     ;;
