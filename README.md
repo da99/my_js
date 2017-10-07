@@ -16,3 +16,20 @@ Notes:
 
   import Externals.JS;
 import Externals.DOM;
+
+* Unusuall error msg:
+
+   ```jspp
+      function f(void v) { ... }
+      function f(v) { ... }
+   ```
+
+* Compiler exits 139:
+   [].constructor
+
+* RegExp turned to string:
+  ```jspp
+    function split_on(string a, r) {
+      return a.split(r);
+    }
+  ```

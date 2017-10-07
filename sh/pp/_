@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}}
+#
+set -u -e -o pipefail
+
+
+if ! which js-beautify &>/dev/null; then
+  my_jspp scratch install
+fi
+
+local +x FILE="$@"
+js-beautify "$FILE" --indent-size 2
+sh_color GREEN "\n=== {{DONE}} ===" >&2
+
+
