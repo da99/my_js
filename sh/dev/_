@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}} watch|compile
+#
+set -u -e -o pipefail
+
+local +x ORIGINAL_ARGS="$@"
+
+if [[ -z "$@" ]]; then
+  local +x ACTION="watch"
+else
+  local +x ACTION="$1"; shift
+fi
+
+case "$ACTION" in
+
+  watch)
+    local +x CMD="my_jspp dev run"
+    ${=CMD} || :
+    process watch "-r ./" "$CMD"
+    ;;
+
+  run)
+    cd "$THIS_DIR"
+    mkdir -p tmp/in tmp/out
+    local +x out=tmp/out/my_jspp
+    sh_color ORANGE "=== {{Compiling}}..."
+    my_crystal __ build src/my_jspp.cr -o $out
+    sh_color GREEN "=== {{DONE}}: $out"
+    ;;
+
+  release)
+    cd "$THIS_DIR"
+    mkdir -p tmp/in tmp/out
+    local +x out=tmp/out/my_jspp
+    local +x fin=bin/my_jspp.cr.release
+    sh_color ORANGE "=== {{Compiling}} release: $out"
+    my_crystal __ build --release src/my_jspp.cr -o $out
+    mv "$out" "$fin"
+    sh_color GREEN "=== {{DONE}}: $fin"
+    ;;
+
+  *)
+    echo "!!! Unknown arguments: $ORIGINAL_ARGS" >&2
+    exit 1
+    ;;
+
+esac
+

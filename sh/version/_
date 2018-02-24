@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+#
+# === {{CMD}} latest
+#
+set -u -e -o pipefail
+
+local +x ORIGINAL_ARGS="$@"
+
+if [[ -z "$@" ]]; then
+  local +x ACTION="default"
+else
+  local +x ACTION="$1"; shift
+fi
+
+case "$ACTION" in
+
+  default)
+    js++ --help
+    ;;
+
+  latest)
+    curl -s "https://www.onux.com/jspp/" | grep Version | tr -s ' ' | cut -d' ' -f3 | tail -n 1
+    ;;
+
+  *)
+    echo "!!! Unknown arguments: $ORIGINAL_ARGS" >&2
+    exit 1
+    ;;
+
+esac
+

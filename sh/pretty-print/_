@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 #
-# === {{CMD}}
+# === {{CMD}} path/to/file.js # pretty prints a JavaScript file
 #
 set -u -e -o pipefail
 

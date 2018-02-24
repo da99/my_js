@@ -6,14 +6,20 @@ set -u -e -o pipefail
 
 local +x ORIGINAL_ARGS="$@"
 
-case "$(echo $@)" in
+if [[ -z "$@" ]]; then
+  local +x ACTION="default"
+else
+  local +x ACTION="$1"; shift
+fi
 
-  "")
+case "$ACTION" in
+
+  "default")
     if ! type curl &>/dev/null ; then
       echo "!!! Install curl" >&2
       exit 5
     fi
-    local +x LATEST_VERSION="$(curl -s "https://www.onux.com/jspp/" | grep Version | tr -s ' ' | cut -d' ' -f3 | tail -n 1)"
+    local +x LATEST_VERSION="$(my_jspp version latest)"
     local +x URL="https://onux.r.worldssl.net/jspp/downloads/JS++-${LATEST_VERSION}-linux_x64.tar.gz"
     cd "$THIS_DIR"
     mkdir -p tmp
