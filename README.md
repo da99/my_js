@@ -9,9 +9,9 @@ Comman Use Cases:
 ======
 
 ```sh
-  my_js __ my.file.jspp -o my.file.js
-  my_js version latest
-  my_js latest
-  my_js install
+  my_js js++ my.file.jspp -o my.file.js
+  my_js js++ version latest
+  my_js js++ latest
+  my_js js++ install
 ```
 
