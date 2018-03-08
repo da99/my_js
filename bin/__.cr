@@ -18,7 +18,11 @@ when cmd == "__"
 
 when full_cmd == "js++ install"
   # === {{CMD}} install # install JS++
-  latest_version = My_JS::JSPP.latest_version
+  My_JS::JSPP.install
+
+when full_cmd == "js++ version"
+  # === {{CMD}} version
+  puts My_JS::JSPP.version
 
 when full_cmd == "js++ version latest"
   # === {{CMD}} latest version
