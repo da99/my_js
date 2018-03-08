@@ -19,7 +19,7 @@ case "$ACTION" in
       echo "!!! Install curl" >&2
       exit 5
     fi
-    local +x LATEST_VERSION="$(my_jspp version latest)"
+    local +x LATEST_VERSION="$(my_js version latest)"
     local +x URL="https://onux.r.worldssl.net/jspp/downloads/JS++-${LATEST_VERSION}-linux_x64.tar.gz"
     cd "$THIS_DIR"
     mkdir -p tmp

@@ -1,6 +1,0 @@
-version: 1.0
-shards:
-  shell_out:
-    github: da99/shell_out.cr
-    version: 0.3.2
-

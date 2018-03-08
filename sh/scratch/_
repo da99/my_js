@@ -27,16 +27,16 @@ case "$ACTION" in
     case "$(echo $@)" in
       "")
         touch tmp/scratch/scratch.jspp
-        local +x CMD="my_jspp scratch compile $@"
+        local +x CMD="my_js scratch compile $@"
         ${=CMD} || :
         process watch "-r tmp/scratch -r sh" "$CMD"
         ;;
 
       output)
         cd "$THIS_DIR"
-        local +x CMD="my_jspp scratch pretty-output"
+        local +x CMD="my_js scratch pretty-output"
         ${=CMD} || :
-        process watch "tmp/scratch-out" "my_jspp scratch pretty-output"
+        process watch "tmp/scratch-out" "my_js scratch pretty-output"
         ;;
 
       *)
@@ -48,7 +48,7 @@ case "$ACTION" in
 
   pretty-output)
     if ! which js-beautify &>/dev/null; then
-      my_jspp scratch install
+      my_js scratch install
     fi
 
     local +x FILE="$THIS_DIR/tmp/scratch-out/scratch.js"

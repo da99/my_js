@@ -15,7 +15,7 @@ fi
 case "$ACTION" in
 
   watch)
-    local +x CMD="my_jspp dev run"
+    local +x CMD="my_js dev run"
     ${=CMD} || :
     process watch "-r ./" "$CMD"
     ;;
@@ -23,19 +23,19 @@ case "$ACTION" in
   run)
     cd "$THIS_DIR"
     mkdir -p tmp/in tmp/out
-    local +x out=tmp/out/my_jspp
+    local +x out=tmp/out/my_js
     sh_color ORANGE "=== {{Compiling}}..."
-    my_crystal __ build src/my_jspp.cr -o $out
+    my_crystal __ build src/my_js.cr -o $out
     sh_color GREEN "=== {{DONE}}: $out"
     ;;
 
   release)
     cd "$THIS_DIR"
     mkdir -p tmp/in tmp/out
-    local +x out=tmp/out/my_jspp
-    local +x fin=bin/my_jspp.cr.release
+    local +x out=tmp/out/my_js
+    local +x fin=bin/my_js.cr.release
     sh_color ORANGE "=== {{Compiling}} release: $out"
-    my_crystal __ build --release src/my_jspp.cr -o $out
+    my_crystal __ build --release src/my_js.cr -o $out
     mv "$out" "$fin"
     sh_color GREEN "=== {{DONE}}: $fin"
     ;;

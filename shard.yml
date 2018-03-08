@@ -1,5 +1,10 @@
-name: my_jspp
+name: my_js
 version: 0.0.0
 dependencies:
-  shell_out:
-    github: da99/shell_out.cr
+  da_process:
+    github: da99/da_process.cr
+  da_dev:
+    github: da99/da_dev
+development_dependencies:
+  da_spec:
+    github: da99/da_spec.cr

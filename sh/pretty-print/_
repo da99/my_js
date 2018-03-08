@@ -6,7 +6,7 @@ set -u -e -o pipefail
 
 
 if ! which js-beautify &>/dev/null; then
-  my_jspp scratch install
+  my_js scratch install
 fi
 
 local +x FILE="$@"
