@@ -1,10 +1,10 @@
 
-require "http/client"
+ENV["PATH"] = "#{ENV["PATH"]}:#{THIS_DIR}/tmp/out/JS++"
 
 module My_JS
   class JSPP
 
-    BIN = "#{THIS_DIR}/tmp/out/JS++/js++"
+    BIN = "js++"
 
     # =============================================================================
     # Class:
@@ -46,17 +46,18 @@ module My_JS
       Dir.cd(THIS_DIR)
       Dir.mkdir_p tmp
       Dir.cd tmp
+      bin = "JS++/#{BIN}"
 
-      if !File.exists?(BIN) || version != target_version
+      if !File.exists?(bin) || version != target_version
         File.delete(file_name) if File.exists?(file_name)
         DA_Process.success!("wget", [url])
         DA_Process.success!("tar", ["-xzf", file_name])
       end
 
-      if File.exists?(BIN)
-        DA_Dev.green! "=== {{DONE}}: BOLD{{#{BIN}}} #{version}"
+      if File.exists?(bin)
+        DA_Dev.green! "=== {{DONE}}: BOLD{{#{bin}}} #{version}"
       else
-        DA_Dev.orange! "=== {{Files installed}}: but executable not found: BOLD{{#{BIN}}} "
+        DA_Dev.orange! "=== {{Files installed}}: but executable not found: BOLD{{#{bin}}} "
         exit 1
       end
     end # === def self.install

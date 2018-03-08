@@ -2,10 +2,10 @@
 require "da_dev"
 require "../src/my_js"
 
+
 full_cmd = ARGV.join(' ')
 args = ARGV.dup
 cmd = args.shift
-THIS_DIR = File.expand_path("#{__DIR__}/..")
 
 case
 when %w[-h help --help].includes?(full_cmd)
