@@ -36,6 +36,7 @@ when cmd == "init" && args.empty?
   else
     File.open(_yarnrc, "a") { |f|
       f.puts %{--install.modules-folder "./.js_packages"}
+      f.puts %{--upgrade.modules-folder "./.js_packages"}
     }
     DA_Dev.green! "=== BOLD{{Wrote}}: {{#{_yarnrc}}}"
   end
