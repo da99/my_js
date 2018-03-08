@@ -21,14 +21,16 @@ module My_JS
 
     def self.latest_version
       resp = DA_Process.new("curl", ["-s", "https://www.onux.com/jspp/"]).success!.output.to_s
-      tmp = Deque(String).new
+      version = nil
       resp.lines.each { |l|
         next unless l["Version"]?
         pieces = l.split
-        tmp.push(pieces[2]) if pieces[2]?
+        if pieces[2]? && pieces[2][/\A\d+\.\d+\.\d+\Z/]?
+          version = pieces[2]
+          break
+        end
       }
-      version = tmp.pop
-      if version.is_a?(String) && version[/\A\d+\.\d+\.\d+\Z/]?
+      if version.is_a?(String)
         version
       else
         STDERR.puts "!!! Could not retrieve version: #{version.inspect}"
