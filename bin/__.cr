@@ -12,10 +12,6 @@ when %w[-h help --help].includes?(full_cmd)
   # === {{CMD}} -h|help|--help
   DA_Dev::Documentation.print_help([__FILE__])
 
-when cmd == "__"
-  # === {{CMD}} __ my args to js++ binary
-  My_JS::JSPP.exec!(args)
-
 when full_cmd == "js++ install"
   # === {{CMD}} install # install JS++
   My_JS::JSPP.install
@@ -27,6 +23,10 @@ when full_cmd == "js++ version"
 when full_cmd == "js++ version latest"
   # === {{CMD}} latest version
   puts My_JS::JSPP.latest_version
+
+when cmd == "js++"
+  # === {{CMD}} __ my args to js++ binary
+  My_JS::JSPP.exec!(args)
 
 when cmd == "init" && args.empty?
   # === {{CMD}} init
