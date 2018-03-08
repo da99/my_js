@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-#
-# === {{CMD}} [the args to the js++ executable]
-#
-set -u -e -o pipefail
-
-local +x ORIGINAL_ARGS="$@"
-
-js++ $@
