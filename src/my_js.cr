@@ -1,5 +1,4 @@
 
-THIS_DIR = File.expand_path("#{__DIR__}/..")
-ENV["PATH"] = "#{ENV["PATH"]}:#{THIS_DIR}/tmp/bin"
+ENV["PATH"] = "#{ENV["PATH"]}:#{__DIR__}/../tmp/JS++"
 
 require "./my_js/*"

@@ -1,5 +1,6 @@
 
 require "da_dev"
+THIS_DIR = File.expand_path("#{__DIR__}/..")
 require "../src/my_js"
 
 
