@@ -1,25 +1,19 @@
 
-ENV["PATH"] = "#{ENV["PATH"]}:#{THIS_DIR}/tmp/out/JS++"
+ENV["PATH"] = "#{ENV["PATH"]}:#{__DIR__}/../tmp/out/JS++"
 
 module My_JS
-  class JSPP
+  module JSPP
+    extend self
 
-    BIN = "js++"
-
-    # =============================================================================
-    # Class:
-    # =============================================================================
-
-    def self.exec!(args : Array(String))
-      Process.exec(BIN, args)
+    def compile(args : Array(String))
+      DA_Process.new("js++", args)
     end
 
-    def self.version
-      proc = DA_Process.new(BIN, "--version".split).success!
-      proc.output.to_s.gsub("JS++(tm) v.", "").strip
+    def version
+      DA_Process.new(BIN, "--version".split).success!.output.to_s.gsub("JS++(tm) v.", "").strip
     end
 
-    def self.latest_version
+    def latest_version
       resp = DA_Process.new("curl", ["-s", "https://www.onux.com/jspp/"]).success!.output.to_s
       version = nil
       resp.lines.each { |l|
@@ -33,12 +27,11 @@ module My_JS
       if version.is_a?(String)
         version
       else
-        STDERR.puts "!!! Could not retrieve version: #{version.inspect}"
-        exit 1
+        raise Error.new("Could not retrieve version: #{version.inspect}")
       end
     end
 
-    def self.install
+    def install
       target_version = latest_version
       url="https://onux.r.worldssl.net/jspp/downloads/JS++-#{target_version}-linux_x64.tar.gz"
       file_name = File.basename(url)
@@ -60,12 +53,7 @@ module My_JS
         DA_Dev.orange! "=== {{Files installed}}: but executable not found: BOLD{{#{bin}}} "
         exit 1
       end
-    end # === def self.install
-
-
-    # =============================================================================
-    # Instance:
-    # =============================================================================
+    end # === def install
 
   end # === class JSPP
 end # === module My_JS
