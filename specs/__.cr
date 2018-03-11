@@ -15,6 +15,27 @@ def reset_fs
   }
 end # === def reset_fs
 
+describe ".new" do
+
+  it "sets .dir" do
+    j = My_JS::File.new([] of String, "/a/b.js")
+    assert j.dir == "a"
+  end # === it "sets .dir"
+
+  it "sets .name" do
+    j = My_JS::File.new([] of String, "/a/b.js")
+    assert j.name == "b"
+  end # === it "sets .name"
+
+  it "sets .extname" do
+    j = My_JS::File.new([] of String, "/a/b.js")
+    assert j.ext == ".js"
+
+    j = My_JS::File.new([] of String, "/a/b.jspp")
+    assert j.ext == ".jspp"
+  end # === it "sets .extname"
+
+end # === desc ".new"
 describe ".compile" do
   it "returns a DA_Process" do
     reset_fs {
