@@ -2,15 +2,15 @@
 module My_JS
   struct File
 
-    getter path : String
-    getter dir  : String
-    getter ext  : String
-    getter name : String
-    getter libs : Array(String)
+    getter path    : String
+    getter dir     : String
+    getter extname : String
+    getter name    : String
+    getter libs    : Array(String)
 
     def initialize(@libs, @path)
       @dir  = ::File.basename(::File.dirname(@path))
-      @ext  = ::File.extname(@path).downcase
+      @extname  = ::File.extname(@path).downcase
       @name = ::File.basename(@path, ::File.extname(@path))
     end # === def initialize
 
@@ -30,7 +30,7 @@ module My_JS
 
     {% for x in %w[jspp].map(&.id) %}
       def {{x}}?
-        @ext == ".{{x}}"
+        @extname == ".{{x}}"
       end
     {% end %}
 

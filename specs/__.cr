@@ -29,10 +29,10 @@ describe ".new" do
 
   it "sets .extname" do
     j = My_JS::File.new([] of String, "/a/b.js")
-    assert j.ext == ".js"
+    assert j.extname == ".js"
 
     j = My_JS::File.new([] of String, "/a/b.jspp")
-    assert j.ext == ".jspp"
+    assert j.extname == ".jspp"
   end # === it "sets .extname"
 
 end # === desc ".new"
