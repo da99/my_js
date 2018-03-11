@@ -10,8 +10,8 @@ Comman Use Cases:
 
 ```sh
   my_js js++ my.file.jspp -o my.file.js
+  my_js js++ version
   my_js js++ version latest
-  my_js js++ latest
-  my_js js++ install
+  my_js install  /to/dir # Creates: /to/dir/JS++
 ```
 
