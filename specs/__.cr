@@ -17,9 +17,9 @@ end # === def reset_fs
 
 describe ".new" do
 
-  it "sets .dir" do
-    j = My_JS::File.new([] of String, "/a/b.js")
-    assert j.dir == "a"
+  it "sets .dir to closes parent dir" do
+    j = My_JS::File.new([] of String, "/a/b/c/d.js")
+    assert j.dir == "c"
   end # === it "sets .dir"
 
   it "sets .name" do
