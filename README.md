@@ -1,5 +1,10 @@
 
+Reference:
+========
+
+* Frameworks: https://javascriptreport.com/the-ultimate-guide-to-javascript-frameworks/
 my\_js
+
 ========
 
 My personal tool to manage [Javascript++](https://www.onux.com/jspp/)
